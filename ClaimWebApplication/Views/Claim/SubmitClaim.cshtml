@@ -141,29 +141,3 @@
         </div>
     </form>
 </div>
-
-<!-- Client-Side Validation -->
-<script>
-    document.getElementById('claimForm').addEventListener('submit', function(event) {
-        let isValid = true;
-
-        // Check required fields (you can add more checks based on your needs)
-        const requiredFields = ['EmployeeName', 'EmployeeSurname', 'EmployeeNo', 'ContactNo', 'Programme', 'Module', 'HoursWorked', 'HourlyRate', 'SubmissionDate', 'SupportingDocs'];
-
-        requiredFields.forEach(function(fieldId) {
-            const field = document.getElementById(fieldId);
-            if (!field.value) {
-                isValid = false;
-                field.classList.add('is-invalid');
-                field.nextElementSibling.textContent = `${field.id} is required.`;
-            } else {
-                field.classList.remove('is-invalid');
-                field.nextElementSibling.textContent = '';
-            }
-        });
-
-        if (!isValid) {
-            event.preventDefault(); // Prevent form submission if invalid
-        }
-    });
-</script>
