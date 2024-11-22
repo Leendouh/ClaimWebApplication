@@ -56,7 +56,6 @@
 
   <ItemGroup>
     <Folder Include="Utilities\" />
-    <Folder Include="Views\Account\" />
   </ItemGroup>
 
 </Project>

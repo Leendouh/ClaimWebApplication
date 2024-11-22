@@ -1,0 +1,175 @@
+﻿@using ClaimWebApplication.ViewModel
+@model RegisterViewModel
+
+@{
+    ViewData["Title"] = "User Login/Register";
+}
+
+<style>
+    /* Global form styles */
+    body {
+        background: #f0f4f8;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Styling for the form container */
+    .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        position: relative;
+        padding: 20px;
+        margin-top: -50px; /* Moves the container up by 50px */
+    }
+
+    /* Main Form Styling */
+    .form {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    /* Input field and select styling */
+    .form-control, .option-control {
+        width: 100%;
+        height: 45px;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+    }
+
+        .form-control:focus, .option-control:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+    /* Button group styling */
+    .button-group {
+        display: flex;
+        justify-content: center; /* Center the buttons */
+    }
+
+    .btn {
+        width: 100%; /* Make button take full width */
+        height: 45px;
+        font-size: 16px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        color: white;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+        color: white;
+        text-align: center; /* Ensures text is centered */
+        line-height: 45px; /* Matches the height of the button for vertical centering */
+        display: block; /* Ensures the button behaves like a block element */
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+    .toggle-button {
+        display: block;
+        margin-top: 10px;
+        text-align: center;
+        color: #007bff;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    /* Form title styling */
+    .form-title {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 24px;
+        color: #333;
+    }
+
+    /* Error message styling */
+    .error-message {
+        color: #ff0000;
+        font-size: 14px;
+    }
+</style>
+
+<div class="form-container">
+    <!-- Register Form (visible by default) -->
+    <div class="form" id="register-form" style="display: block;">
+        <h2 class="form-title">User Registration</h2>
+        <!-- Check for error messages from TempData -->
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">
+                <span><b>Sorry!</b> - @TempData["Error"]</span>
+            </div>
+        }
+
+        <form asp-action="Register">
+            <div class="form-group">
+                <label for="EmailAddress">Email Address</label>
+                <input asp-for="EmailAddress" id="EmailAddress" name="Username" class="form-control" placeholder="Enter your email address" required />
+                <small class="error-message">* Username is required</small>
+            </div>
+            <div class="form-group">
+                <label for="Password">Password</label>
+                <input asp-for="Password" id="Password" name="Password" class="form-control" placeholder="Enter your password" required />
+                <small class="error-message">* Password is required</small>
+            </div>
+            <div class="form-group">
+                <label for="Role">Role</label>
+                <select class="option-control" id="Role" name="Role">
+                    <option value="Lecturer">Lecturer</option>
+                    <option value="ProgramCoordinator">Program Coordinator</option>
+                    <option value="AcademicManager">Academic Manager</option>
+                    <option value="HumanRecources">Human Recources</option>
+                </select>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-primary" type="submit">Register</button>
+            </div>
+            <!-- Cancel button moved below Register -->
+            <div class="button-group mt-3">
+                <a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Cancel</a>
+            </div>
+        </form>
+        <a class="toggle-button" asp-area="" asp-controller="Account" asp-action="Login">Already have an account? Login here</a>
+    </div>
+</div>
+
+<script>
+    // Function to toggle between the login and register forms
+    function toggleForm(formType) {
+        if (formType === 'register') {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('register-form').style.display = 'block';
+        } else if (formType === 'login') {
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('register-form').style.display = 'none';
+        }
+    }
+    $("form").submit(function (e) {
+        e.preventDefault();  // Prevent page reload
+        // Your AJAX call here
+    });
+
+</script>
