@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Claim>
+
+@{
+    ViewData["Title"] = "Claims";
+}
+
+<h2 class="text-center mb-4 text-primary">Lecturer's Claims</h2>
+<table class="table table-striped text-center">
+    <thead>
+        <tr>
+            <th>Employee No</th>
+            <th>Programme</th>
+            <th>Module</th>
+            <th>Hours Worked</th>
+            <th>Hourly Rate</th>
+            <th>Total Payment</th>
+            <th>Submission Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var claim in Model)
+            {
+                <tr>
+                    <td>@claim.EmployeeNo</td>
+                    <td>@claim.Programme</td>
+                    <td>@claim.Module</td>
+                    <td>@claim.HoursWorked</td>
+                    <td>@claim.HourlyRate.ToString("C")</td>
+                    <td>@claim.TotalPayment.ToString("C")</td>
+                    <td>@claim.SubmissionDate.ToString("dd MMM yyyy")</td>
+                    <td>@claim.Status</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="12" class="text-center">No claims available.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<!-- Add Claim Button -->
+<div class="text-center mb-4">
+    <a href="@Url.Action("SubmitClaim", "Claim")" class="btn btn-primary">Add Claim</a>
+</div>

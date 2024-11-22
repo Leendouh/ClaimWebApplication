@@ -1,0 +1,85 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!-- Jumbotron Section -->
+<section class="jumbotron text-center bg-primary text-white rounded-0 py-2 my-4">
+    <div class="container py-4">
+        <h1 class="display-4 font-weight-bold">Contract Monthly Claim System</h1>
+        <p class="lead text-light">
+            CMCS is a web application designed to streamline the process of submitting and reviewing claims for independent contractor lecturers.
+            It provides functionalities for lecturers to submit claims, for academic managers to review and approve them, and for program coordinators to oversee the claim process.
+        </p>
+    </div>
+</section>
+
+
+<!-- Feature Cards Section -->
+<div class="album py-5 bg-light" id="features">
+    <div class="container">
+        <div class="row">
+            <!-- First Card - Lecturer -->
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card shadow-lg border-light rounded">
+                    <img src="/images/lecturer.jpg" class="card-img-top rounded-circle mx-auto mt-4" style="width: 250px; height: 250px;" alt="Lecturer">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Lecturer</h5>
+                        <p class="card-text text-center">Submit claims with supporting documents and track the status.</p>
+                        <div class="d-flex justify-content-center gap-3">
+                            <!-- Pass the role as a query string parameter -->
+                            <a class="btn btn-outline-primary btn-sm" asp-area="" asp-controller="Account" asp-action="Login" asp-route-role="Lecturer">Login</a>
+                            <a class="btn btn-outline-secondary btn-sm" asp-area="" asp-controller="Claim" asp-action="Index" >Register</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Second Card - Academic Manager -->
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card shadow-lg border-light rounded">
+                    <img src="/images/am.jpg" class="card-img-top rounded-circle mx-auto mt-4" style="width: 250px; height: 250px;" alt="Academic Manager">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Academic Manager</h5>
+                        <p class="card-text text-center">Review and approve claims from lecturers with ease.</p>
+                        <div class="d-flex justify-content-center gap-3">
+                            <a class="btn btn-outline-primary btn-sm" asp-area="" asp-controller="Account" asp-action="Login" asp-route-role="AcademicManager">Login</a>
+                            <a class="btn btn-outline-secondary btn-sm" asp-area="" asp-controller="Claim" asp-action="Details" >Register</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Third Card - Program Coordinator -->
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card shadow-lg border-light rounded">
+                    <img src="/images/pc.jpg" class="card-img-top rounded-circle mx-auto mt-4" style="width: 250px; height: 250px;" alt="Program Coordinator">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Program Coordinator</h5>
+                        <p class="card-text text-center">Oversee, manage claims submission, approval, & status updates.</p>
+                        <div class="d-flex justify-content-center gap-3">
+                            <a class="btn btn-outline-primary btn-sm" asp-area="" asp-controller="Account" asp-action="Login" asp-route-role="ProgramCoordinator">Login</a>
+                            <a class="btn btn-outline-secondary btn-sm" asp-area="" asp-controller="Claim" asp-action="Review">Register</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fourth Card - Human Resources -->
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card shadow-lg border-light rounded">
+                    <img src="/images/hr.jpg" class="card-img-top rounded-circle mx-auto mt-4" style="width: 250px; height: 250px;" alt="Human Resources">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Human Resources</h5>
+                        <p class="card-text text-center">Manage documents, edit details, and approve or decline claims.</p>
+                        <div class="d-flex justify-content-center gap-3">
+                            <a class="btn btn-outline-primary btn-sm" asp-area="" asp-controller="Account" asp-action="Login" asp-route-role="HumanRecources">Login</a>
+                            <a class="btn btn-outline-secondary btn-sm" asp-area="" asp-controller="HR" asp-action="Index">Register</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,169 @@
+﻿@model Claim
+
+@{
+    ViewData["Title"] = "Claim Page";
+}
+
+<style>
+    /* Styling for the form container */
+    .form {
+        display: flex;
+        justify-content: center; /* Center the form horizontally */
+        align-items: flex-start; /* Align to the top to prevent vertical centering */
+        padding: 20px; /* Add padding to the container */
+        margin: 20px; /* Add margin around the form container */
+    }
+
+    /* Styling for the form itself */
+    form {
+        background-color: #f8f9fa; /* Light background for the form */
+        padding: 20px; /* Padding around the form content */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        width: 1000px; /* Set width for the claim form */
+        max-width: 100%; /* Ensure responsiveness */
+        margin: 0 auto; /* Center the form */
+    }
+
+    /* Styling for the section containers */
+    .section-container {
+        display: flex; /* Enable flexbox layout for sections */
+        justify-content: space-between; /* Space between sections */
+        margin-bottom: 20px; /* Space below sections */
+    }
+
+    /* Styling for each section box */
+    .section-box {
+        flex: 1; /* Allow sections to grow equally */
+        padding: 20px;
+        margin-right: 10px; /* Space between sections */
+        border: 1px solid #ddd; /* Light border around each section */
+        border-radius: 10px; /* Rounded corners for sections */
+        height: 100%; /* Ensure full height */
+    }
+
+        /* Remove margin from the last section */
+        .section-box:last-child {
+            margin-right: 0; /* No margin for the last section */
+        }
+
+    /* Styling for the labels */
+    label {
+        width: 100%; /* Set labels to take full width */
+        margin-top: 10px;
+    }
+
+    /* Styling for the input fields */
+    .form-control {
+        width: 100%; /* Make input fields take full width */
+        height: 35px; /* Set the height of input fields */
+        margin-bottom: 15px;
+    }
+
+    /* Styling for buttons container */
+    .button-group {
+        display: flex;
+        justify-content: space-between; /* Space between buttons */
+        margin-top: 20px; /* Space above button group */
+    }
+
+    /* Styling for buttons */
+    .btn {
+        width: 48%; /* Each button takes 48% of the row width */
+        height: 40px;
+    }
+
+    .form-header {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+</style>
+
+<div class="form">
+    <form method="post" enctype="multipart/form-data" id="claimForm">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <!-- Section containers -->
+        <div class="section-container">
+            <!-- Lecturer Information Section (Read-Only) -->
+            <div class="section-box">
+                <h4 class="text-center mb-4 text-primary">Lecturer Information</h4>
+
+                <label>Name</label>
+                <input class="form-control" id="EmployeeName" value="@Model.EmployeeName" readonly />
+
+                <label>Surname</label>
+                <input class="form-control" id="EmployeeSurname" value="@Model.EmployeeSurname" readonly />
+
+                <label>Employee No.</label>
+                <input class="form-control" id="EmployeeNo" value="@Model.EmployeeNo" readonly />
+
+                <label>Contact Details</label>
+                <input class="form-control" id="ContactNo" value="@Model.ContactNo" readonly />
+            </div>
+
+            <!-- Claim Detail Section (Editable) -->
+            <div class="section-box">
+                <h4 class="text-center mb-4 text-primary">Claim Details</h4>
+
+                <label asp-for="Programme">Programme</label>
+                <input asp-for="Programme" class="form-control" id="Programme" placeholder="Enter programme" />
+                <span asp-validation-for="Programme" class="text-danger"></span>
+
+                <label asp-for="Module">Module</label>
+                <input asp-for="Module" class="form-control" id="Module" placeholder="Enter module" />
+                <span asp-validation-for="Module" class="text-danger"></span>
+
+                <label asp-for="HoursWorked">Hours Worked</label>
+                <input asp-for="HoursWorked" class="form-control" id="HoursWorked" placeholder="Enter hours" />
+                <span asp-validation-for="HoursWorked" class="text-danger"></span>
+
+                <label asp-for="HourlyRate">Hourly Rate</label>
+                <input asp-for="HourlyRate" class="form-control" id="HourlyRate" placeholder="Enter rate" />
+                <span asp-validation-for="HourlyRate" class="text-danger"></span>
+
+                <label asp-for="SubmissionDate">Submission Date</label>
+                <input asp-for="SubmissionDate" class="form-control" id="SubmissionDate" value="@Model.SubmissionDate.ToString("yyyy-MM-dd")" readonly />
+                <span asp-validation-for="SubmissionDate" class="text-danger"></span>
+
+                <label asp-for="SupportingDocs">Supporting Documents</label>
+                <input asp-for="SupportingDocs" type="file" class="form-control" id="SupportingDocs" accept=".pdf" />
+                <span asp-validation-for="SupportingDocs" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Buttons with space between them -->
+        <div class="button-group">
+            <!-- Button to Add Another Module, will clear the input fields -->
+            <button class="btn btn-secondary" type="submit" name="action" value="AddAnotherModule">Add Another Module</button>
+            <!-- Button to Submit the Claim -->
+            <button class="btn btn-primary" type="submit" name="action" value="SubmitClaim">Submit Claim</button>
+        </div>
+    </form>
+</div>
+
+<!-- Client-Side Validation -->
+<script>
+    document.getElementById('claimForm').addEventListener('submit', function(event) {
+        let isValid = true;
+
+        // Check required fields (you can add more checks based on your needs)
+        const requiredFields = ['EmployeeName', 'EmployeeSurname', 'EmployeeNo', 'ContactNo', 'Programme', 'Module', 'HoursWorked', 'HourlyRate', 'SubmissionDate', 'SupportingDocs'];
+
+        requiredFields.forEach(function(fieldId) {
+            const field = document.getElementById(fieldId);
+            if (!field.value) {
+                isValid = false;
+                field.classList.add('is-invalid');
+                field.nextElementSibling.textContent = `${field.id} is required.`;
+            } else {
+                field.classList.remove('is-invalid');
+                field.nextElementSibling.textContent = '';
+            }
+        });
+
+        if (!isValid) {
+            event.preventDefault(); // Prevent form submission if invalid
+        }
+    });
+</script>

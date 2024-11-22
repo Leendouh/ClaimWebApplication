@@ -1,0 +1,65 @@
+﻿@model ClaimWebApplication.Models.Claim
+
+@{
+    ViewData["Title"] = "Review Claim";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4 text-primary">Review Claim</h2>
+
+    <div class="card mb-4 shadow-lg rounded">
+        <div class="card-body">
+            <h5 class="card-title font-weight-bold mb-4 text-primary">Claim for: @Model.EmployeeName @Model.EmployeeSurname</h5>
+
+            <dl class="row">
+                <!-- Lecturer Information -->
+                <dt class="col-sm-4 text-dark">Lecturer Name:</dt>
+                <dd class="col-sm-8">@Model.EmployeeName</dd>
+
+                <dt class="col-sm-4 text-dark">Lecturer Surname:</dt>
+                <dd class="col-sm-8">@Model.EmployeeSurname</dd>
+
+                <dt class="col-sm-4 text-dark">Employee No.:</dt>
+                <dd class="col-sm-8">@Model.EmployeeNo</dd>
+
+                <!-- Claim Details -->
+                <dt class="col-sm-4 text-dark">Programme:</dt>
+                <dd class="col-sm-8">@Model.Programme</dd>
+
+                <dt class="col-sm-4 text-dark">Module:</dt>
+                <dd class="col-sm-8">@Model.Module</dd>
+
+                <dt class="col-sm-4 text-dark">Hourly Rate:</dt>
+                <dd class="col-sm-8">@Model.HourlyRate.ToString("C")</dd>
+
+                <dt class="col-sm-4 text-dark">Hours Worked:</dt>
+                <dd class="col-sm-8">@Model.HoursWorked</dd>
+
+                <dt class="col-sm-4 text-dark">Total Payment:</dt>
+                <dd class="col-sm-8">@Model.TotalPayment.ToString("C")</dd>
+
+                <dt class="col-sm-4 text-dark">Submission Date:</dt>
+                <dd class="col-sm-8">@Model.SubmissionDate.ToString("dd MMM yyyy")</dd>
+
+                <dt class="col-sm-4 text-dark">Supporting Documents:</dt>
+                <dd class="col-sm-8">
+                    @if (!string.IsNullOrEmpty(Model.SupportingDocs))
+                    {
+                        <a href="/uploads/@Model.SupportingDocs" target="_blank" class="text-success">View Document</a>
+                    }
+                    else
+                    {
+                        <span class="text-muted">No document</span>
+                    }
+                </dd>
+
+                <dt class="col-sm-4 text-dark">Status:</dt>
+                <dd class="col-sm-8">@Model.Status</dd>
+
+                <dt class="col-sm-4"><a asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-outline-secondary btn-sm">Edit</a></dt>
+                <dd class="col-sm-8"><a asp-action="" asp-route-id="@Model.ID" class="btn btn-outline-primary btn-sm">Confirm</a></dd>
+
+            </dl>
+        </div>
+    </div>
+</div>

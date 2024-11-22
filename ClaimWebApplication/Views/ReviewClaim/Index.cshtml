@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Claim>
+
+@{
+    ViewData["Title"] = "Claims";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Review Claim</h2>
+
+    @if (Model != null && Model.Any())
+    {
+        @foreach (var claim in Model)
+        {
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold mb-4 text-primary">Claim for: @claim.EmployeeName @claim.EmployeeSurname</h5>
+
+                    <dl class="row">
+                        <!-- Lecturer Information -->
+                        <dt class="col-sm-3">Lecturer Name:</dt>
+                        <dd class="col-sm-9">@claim.EmployeeName</dd>
+
+                        <dt class="col-sm-3">Lecturer Surname:</dt>
+                        <dd class="col-sm-9">@claim.EmployeeSurname</dd>
+
+                        <dt class="col-sm-3">Employee No.:</dt>
+                        <dd class="col-sm-9">@claim.EmployeeNo</dd>
+
+                        <dt class="col-sm-3">Contact Details:</dt>
+                        <dd class="col-sm-9">@claim.ContactNo</dd>
+
+                        <!-- Claim Details -->
+                        <dt class="col-sm-3">Programme:</dt>
+                        <dd class="col-sm-9">@claim.Programme</dd>
+
+                        <dt class="col-sm-3">Module:</dt>
+                        <dd class="col-sm-9">@claim.Module</dd>
+
+                        <dt class="col-sm-3">Hourly Rate:</dt>
+                        <dd class="col-sm-9">@claim.HourlyRate.ToString("C")</dd>
+
+                        <dt class="col-sm-3">Hours Worked:</dt>
+                        <dd class="col-sm-9">@claim.HoursWorked.ToString("C")</dd>
+
+                        <dt class="col-sm-3">Total Payment:</dt>
+                        <dd class="col-sm-9">@claim.TotalPayment.ToString("C")</dd>
+
+                        <dt class="col-sm-3">Submission Date:</dt>
+                        <dd class="col-sm-9">@claim.SubmissionDate.ToString("dd MMM yyyy")</dd>
+
+                        <dt class="col-sm-3">Supporting Documents:</dt>
+                        <dd class="col-sm-9">
+                            @if (!string.IsNullOrEmpty(claim.SupportingDocs))
+                            {
+                                <a href="/uploads/@claim.SupportingDocs" target="_blank">View Document</a>
+                            }
+                            else
+                            {
+                                <span>No document</span>
+                            }
+                        </dd>
+                    </dl>
+
+                    <!-- Buttons to confirm or edit -->
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Edit" asp-route-id="@claim.ID" class="btn btn-secondary">Edit</a>
+                        <a id="confirmBtn-@claim.ID" href="@Url.Action("ConfirmClaim", "Claims", new { id = claim.ID })" 
+                           class="btn btn-primary confirm-btn" 
+                           onclick="confirmClaim(this, @claim.ID)">Confirm</a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="alert alert-warning text-center">No claim forms available to review.</div>
+    }
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        function confirmClaim(button, claimId) {
+            // Disable the button to prevent multiple clicks
+            button.classList.add("disabled");
+            // Change the button text to "Confirmed"
+            button.innerText = "Confirmed";
+
+            // Optionally, you can make an AJAX call to update the claim status in the backend
+            // (e.g., calling the ConfirmClaim action in your Claims controller)
+            // You can also set a timeout to revert the button text after a certain time if needed.
+        }
+    </script>
+}

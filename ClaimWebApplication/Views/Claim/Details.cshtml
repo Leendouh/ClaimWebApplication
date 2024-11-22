@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Claim>
+
+@{
+    ViewData["Title"] = "Claims";
+}
+
+<h2 class="text-center mb-4 text-primary">Academic Manager's View</h2>
+<table class="table table-striped text-center">
+    <thead>
+        <tr>
+            <th>Employee No</th>
+            <th>Programme</th>
+            <th>Module</th>
+            <th>Hours Worked</th>
+            <th>Hourly Rate</th>
+            <th>Total Payment</th>
+            <th>Submission Date</th>
+            <th>Views</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var claim in Model.Where(c => c.Status == "Pending"))
+            {
+                <tr>
+                    <td>@claim.EmployeeNo</td>
+                    <td>@claim.Programme</td>
+                    <td>@claim.Module</td>
+                    <td>@claim.HoursWorked</td>
+                    <td>@claim.HourlyRate.ToString("C")</td>
+                    <td>@claim.TotalPayment.ToString("C")</td>
+                    <td>@claim.SubmissionDate.ToString("dd MMM yyyy")</td>
+                    <td>
+                        <a asp-action="Review" asp-route-id="@claim.ID" class="btn btn-primary btn-sm">View</a>
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-center gap-2">
+                            <form asp-action="ApproveClaim" method="post" class="d-inline">
+                                <input type="hidden" name="claimId" value="@claim.ID" />
+                                <button type="submit" class="btn btn-success btn-sm">Approve</button>
+                            </form>
+
+                            <form asp-action="RejectClaim" method="post" class="d-inline">
+                                <input type="hidden" name="claimId" value="@claim.ID" />
+                                <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                            </form>
+
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="8" class="text-center">No claims available.</td>
+            </tr>
+        }
+    </tbody>
+</table>
