@@ -14,7 +14,7 @@ namespace ClaimWebApplication.Controllers
         {
             _claimRepository = claimRepository;
         }
-        [Authorize(Roles = "HumanResources")]
+        //[Authorize(Roles = "HumanResources")]
         public async Task<IActionResult> Index()
         {
             List<Claim> claims = await _claimRepository.GetAllClaimsAsync();
@@ -25,7 +25,7 @@ namespace ClaimWebApplication.Controllers
             var claim = await _claimRepository.GetClaimByIdAsync(id);
             return View(claim);
         }
-        [Authorize(Roles = "HumanResources")]
+        //[Authorize(Roles = "HumanResources")]
         [HttpGet]
         public async Task<IActionResult> GenerateReport(int id)
         {

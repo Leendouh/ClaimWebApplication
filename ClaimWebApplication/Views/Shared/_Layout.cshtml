@@ -23,33 +23,29 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <!-- Link for Lecturers -->
-                        @if (User.Identity.IsAuthenticated)
-                        {
+                       
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Claim" asp-action="Index">Claims</a>
                             </li>
-                        }
+                        
                         <!-- Link for Program Coordinators -->
-                        @if (User.Identity.IsAuthenticated)
-                        {
+                        
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Claim" asp-action="Confirm">Reviews</a>
                             </li>
-                        }
+                        
                         <!-- Link for Academic Managers -->
-                        @if (User.Identity.IsAuthenticated)
-                        {
+                        
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Claim" asp-action="Details">Details</a>
                             </li>
-                        }
+                        
                         <!-- Link for Human Resources -->
-                        @if (User.Identity.IsAuthenticated)
-                        {
+                        
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="HR" asp-action="Index">HR</a>
                             </li>
-                        }
+                        
                     </ul>
                 </div>
             </div>
