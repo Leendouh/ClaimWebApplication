@@ -20,27 +20,27 @@ namespace ClaimWebApplication.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Lecturer")]
+        //[Authorize(Roles = "Lecturer")]
         public async Task<IActionResult> Index()
         {
             List<Claim> claims = await _claimRepository.GetAllClaimsAsync();
             return View(claims);
         }
 
-        [Authorize(Roles = "ProgramCoordinator")]
+        //[Authorize(Roles = "ProgramCoordinator")]
         public async Task<IActionResult> Review(int id)
         {
             var claim = await _claimRepository.GetClaimByIdAsync(id);
             return View(claim);
         }
-        [Authorize(Roles = "ProgramCoordinator")]
+        //[Authorize(Roles = "ProgramCoordinator")]
         public async Task<IActionResult> Confirm()
         {
             List<Claim> claims = await _claimRepository.GetAllClaimsAsync();
             return View(claims);
         }
 
-        [Authorize(Roles = "Lecturer")]
+        //[Authorize(Roles = "Lecturer")]
         [HttpPost]
         public async Task<IActionResult> SubmitClaim(Claim model, IFormFile supportingDocs)
         {
@@ -75,7 +75,7 @@ namespace ClaimWebApplication.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize(Roles = "AcademicManager")]
+        //[Authorize(Roles = "AcademicManager")]
         public async Task<IActionResult> Details()
         {
             var claims = await _claimRepository.GetPendingClaimsAsync();
