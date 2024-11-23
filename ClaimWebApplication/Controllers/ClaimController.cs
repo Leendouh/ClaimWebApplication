@@ -17,7 +17,8 @@ namespace ClaimWebApplication.Controllers
 
         public IActionResult SubmitClaim()
         {
-            return View();
+            var claimModel = new Claim(); // or fetch any default data if necessary
+            return View(claimModel);
         }
 
         //[Authorize(Roles = "Lecturer")]

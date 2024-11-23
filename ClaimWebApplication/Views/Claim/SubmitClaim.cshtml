@@ -82,36 +82,38 @@
 <div class="form">
     <form method="post" enctype="multipart/form-data" id="claimForm">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
         <!-- Section containers -->
         <div class="section-container">
-            <!-- Lecturer Information Section (Read-Only) -->
+            <!-- Lecturer Information Section -->
             <div class="section-box">
-                <h4 class="text-center mb-4 text-primary">Lecturer Information</h4>
+                <h4>Lecturer Information</h4>
+                <label asp-for="EmployeeName">Name</label>
+                <input asp-for="EmployeeName" class="form-control" id="EmployeeName" placeholder="Enter your name" />
+                <span asp-validation-for="EmployeeName" class="text-danger"></span>
 
-                <label>Name</label>
-                <input class="form-control" id="EmployeeName" value="@Model.EmployeeName" readonly />
+                <label asp-for="EmployeeSurname">Surname</label>
+                <input asp-for="EmployeeSurname" class="form-control" id="EmployeeSurname" placeholder="Enter your surname" />
+                <span asp-validation-for="EmployeeSurname" class="text-danger"></span>
 
-                <label>Surname</label>
-                <input class="form-control" id="EmployeeSurname" value="@Model.EmployeeSurname" readonly />
+                <label asp-for="EmployeeNo">Employee No.</label>
+                <input asp-for="EmployeeNo" class="form-control" id="EmployeeNo" placeholder="Enter employee number" />
+                <span asp-validation-for="EmployeeNo" class="text-danger"></span>
 
-                <label>Employee No.</label>
-                <input class="form-control" id="EmployeeNo" value="@Model.EmployeeNo" readonly />
-
-                <label>Contact Details</label>
-                <input class="form-control" id="ContactNo" value="@Model.ContactNo" readonly />
+                <label asp-for="ContactNo">Contact Details</label>
+                <input asp-for="ContactNo" class="form-control" id="ContactNo" placeholder="Enter contact number" />
+                <span asp-validation-for="ContactNo" class="text-danger"></span>
             </div>
 
-            <!-- Claim Detail Section (Editable) -->
+            <!-- Claim Detail Section -->
             <div class="section-box">
-                <h4 class="text-center mb-4 text-primary">Claim Details</h4>
+                <h4>Claim Details</h4>
 
                 <label asp-for="Programme">Programme</label>
                 <input asp-for="Programme" class="form-control" id="Programme" placeholder="Enter programme" />
                 <span asp-validation-for="Programme" class="text-danger"></span>
 
                 <label asp-for="Module">Module</label>
-                <input asp-for="Module" class="form-control" id="Module" placeholder="Enter module" />
+                <input asp-for="Module" class="form-control" id="Module" placeholder="Enter module name" />
                 <span asp-validation-for="Module" class="text-danger"></span>
 
                 <label asp-for="HoursWorked">Hours Worked</label>
@@ -123,7 +125,7 @@
                 <span asp-validation-for="HourlyRate" class="text-danger"></span>
 
                 <label asp-for="SubmissionDate">Submission Date</label>
-                <input asp-for="SubmissionDate" class="form-control" id="SubmissionDate" value="@Model.SubmissionDate.ToString("yyyy-MM-dd")" readonly />
+                <input asp-for="SubmissionDate" class="form-control" id="SubmissionDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
                 <span asp-validation-for="SubmissionDate" class="text-danger"></span>
 
                 <label asp-for="SupportingDocs">Supporting Documents</label>
@@ -134,10 +136,34 @@
 
         <!-- Buttons with space between them -->
         <div class="button-group">
-            <!-- Button to Add Another Module, will clear the input fields -->
-            <button class="btn btn-secondary" type="submit" name="action" value="AddAnotherModule">Add Another Module</button>
-            <!-- Button to Submit the Claim -->
-            <button class="btn btn-primary" type="submit" name="action" value="SubmitClaim">Submit Claim</button>
+            <button class="btn btn-secondary" type="submit">Add Another Module</button>
+            <button class="btn btn-primary" type="submit">Submit Claim</button>
         </div>
     </form>
 </div>
+
+<!-- Client-Side Validation -->
+<script>
+    document.getElementById('claimForm').addEventListener('submit', function (event) {
+        let isValid = true;
+
+        // Check required fields (you can add more checks based on your needs)
+        const requiredFields = ['EmployeeName', 'EmployeeSurname', 'EmployeeNo', 'ContactNo', 'Programme', 'Module', 'HoursWorked', 'HourlyRate', 'SubmissionDate', 'SupportingDocs'];
+
+        requiredFields.forEach(function (fieldId) {
+            const field = document.getElementById(fieldId);
+            if (!field.value) {
+                isValid = false;
+                field.classList.add('is-invalid');
+                field.nextElementSibling.textContent = `${field.id} is required.`;
+            } else {
+                field.classList.remove('is-invalid');
+                field.nextElementSibling.textContent = '';
+            }
+        });
+
+        if (!isValid) {
+            event.preventDefault(); // Prevent form submission if invalid
+        }
+    });
+</script>
