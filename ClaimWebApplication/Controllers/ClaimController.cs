@@ -21,27 +21,24 @@ namespace ClaimWebApplication.Controllers
             return View(claimModel);
         }
 
-        //[Authorize(Roles = "Lecturer")]
         public async Task<IActionResult> Index()
         {
             List<Claim> claims = await _claimRepository.GetAllClaimsAsync();
             return View(claims);
         }
 
-        //[Authorize(Roles = "ProgramCoordinator")]
         public async Task<IActionResult> Review(int id)
         {
             var claim = await _claimRepository.GetClaimByIdAsync(id);
             return View(claim);
         }
-        //[Authorize(Roles = "ProgramCoordinator")]
         public async Task<IActionResult> Confirm()
         {
             List<Claim> claims = await _claimRepository.GetAllClaimsAsync();
             return View(claims);
         }
 
-        //[Authorize(Roles = "Lecturer")]
+        [Authorize(Roles = "lecturer")]
         [HttpPost]
         public async Task<IActionResult> SubmitClaim(Claim model, IFormFile supportingDocs)
         {
@@ -76,13 +73,13 @@ namespace ClaimWebApplication.Controllers
             return RedirectToAction("Index");
         }
 
-        //[Authorize(Roles = "AcademicManager")]
         public async Task<IActionResult> Details()
         {
             var claims = await _claimRepository.GetPendingClaimsAsync();
             return View(claims);
         }
 
+        [Authorize(Roles = "lecturer")]
         [HttpPost]
         public async Task<IActionResult> ApproveClaim(int claimId)
         {
@@ -95,6 +92,7 @@ namespace ClaimWebApplication.Controllers
             return RedirectToAction("Details");
         }
 
+        [Authorize(Roles = "lecturer")]
         [HttpPost]
         public async Task<IActionResult> RejectClaim(int claimId)
         {
@@ -107,6 +105,7 @@ namespace ClaimWebApplication.Controllers
             return RedirectToAction("Details");
         }
 
+        [Authorize(Roles = "programCoordinator")]
         // GET: Edit
         public async Task<IActionResult> Edit(int id)
         {

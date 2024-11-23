@@ -25,7 +25,7 @@ namespace ClaimWebApplication.Controllers
             var claim = await _claimRepository.GetClaimByIdAsync(id);
             return View(claim);
         }
-        //[Authorize(Roles = "HumanResources")]
+        [Authorize(Roles = "humanResources")]
         [HttpGet]
         public async Task<IActionResult> GenerateReport(int id)
         {
