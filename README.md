@@ -52,7 +52,7 @@ The **Contact Monthly Claim System (CMCS)** is a streamlined web-based applicati
 ### Steps
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo/cmcs.git
+   git clone https://github.com/Leendouh/ClaimWebApplication.git
    ```
 2. Navigate to the project directory:
    ```bash
